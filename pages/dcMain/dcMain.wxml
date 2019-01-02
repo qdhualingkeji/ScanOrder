@@ -1,0 +1,38 @@
+<!--dcMain.wxml-->
+<view class='main_view'>
+  <view class='logo_view'>
+    <image class='logoUrl_image' src="{{logoUrl}}"></image>
+    <view class='shopName_view' id="shopName_view">{{shopName}}</view>
+    <view class='locationAddress_view'>{{locationAddress}}</view>
+  </view>
+  <scroll-view class='category_sv' scroll-y="true">
+    <view class="category_view" id="category_view" wx:for-items="{{categoryList}}">
+      <view class="item selected" id="category{{item.id}}" catchtap='getGoodsListByCategoryId'>
+        {{item.categoryName}}
+      </view>
+    </view>
+  </scroll-view>
+  <scroll-view class='goodsList_sv' scroll-y="true">
+    <view class="goodsList_view" id="goodsList_view" wx:for-items="{{goodsList}}">
+      <view class="item" data-index='{{index}}' catchtap='goGoodsdetail'>
+        <image class="goods_img" src="{{item.imgUrl}}"></image>
+        <view class="productName_view">{{item.productName}}</view>
+        <view class="price_view">￥{{item.price}}</view>
+        <view class="option_view">
+          <image class="add_img" src='/image/002.png'></image>
+          <input class="count_input" value='0'></input>
+          <image class="remove_img" src='/image/003.png'></image>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view style='width:100%;height:60px;background-color:#303030;'>
+    <image src="/image/004.png" style='width:30px;height:30px;margin-top:15px;margin-left:15px;'></image>
+    <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;background-color:#dd5911;float:right;'>
+    去结算
+    </view>
+    <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;float:right;margin-right:70px;'>
+    ￥2.00
+    </view>
+  </view>
+</view>

@@ -1,0 +1,81 @@
+<!--orderDetail.wxml-->
+<view class='main_view'>
+  <view class='ddxq_view'>
+    订单详情
+  </view>
+  <view class='state_view'>
+    <view class='space1_view'></view>
+    <view class='state_middle_view'>
+      <image class='paid_img' src='/image/005.png'></image>
+      <view class='paid_view'>
+        {{paid}}
+      </view>
+      <view class='line1_view'></view>
+      <image class='cook_img' src='/image/006.png'></image>
+      <view class='cook_view'>
+        {{cook}}
+      </view>
+      <view class='line2_view'></view>
+      <image class='finished_img' src='/image/007.png'></image>
+      <view class='finished_view'>
+        {{finished}}
+      </view>
+    </view>
+    <view class='tishi_view'>
+      您点的菜已经告诉后厨!他们正在用心烹制
+    </view>
+  </view>
+  <view class='order_view'>
+    <view class='orderNumber_view'>订单:123456789</view>
+    <view class='orderTime_view'>{{orderTime}}</view>
+    <view class='stateTip_view'>{{stateTip}}</view>
+  </view>
+  <view class='ydsp_view'>
+    已点商品({{productListLength}})
+  </view>
+  <view class='productList_view' wx:for-items="{{productList}}">
+    <view class='item_view'>
+      <view class='productName_view'>{{item.productName}}</view>
+      <view class='price_view'>{{item.price}}元</view>
+      <view class='quantity_view'>{{item.quantity}}</view>
+    </view>
+  </view>
+  <view class='tjdd_view'>
+    <view class="committedTime_view">提交订单已:{{commitTime}}</view>
+    <view class='totalMount_view'>共{{totalMount}}件合计:
+      <view class='totalConsume_view'>{{totalConsume}}元</view>
+    </view>
+  </view>
+  <view class='tdcd_view'>
+    <view class='cd_view' catchtap='cuiDan'>
+      <image class='cd_img' src='/image/009.png'></image>
+      <view class='cd_text_view'>催单</view>
+    </view>
+    <view class='td_view' catchtap='tiaoDan'>
+      <image class='td_img' src='/image/008.png'></image>
+      <view class='td_text_view'>调单</view>
+    </view>
+  </view>
+  <view style='width:100%;height:20px;background-color:#ededed;'></view>
+  <view class='space2_view'></view>
+  <view class='bottom_view'>
+    <view class='but_view'>
+      <view class='dc_view'>
+        <view class='dc_img_view'>
+          <image class='dc_img' src='/image/010.png'></image>
+        </view>
+        <view class='dc_text_view'>
+          点菜
+        </view>
+      </view>
+      <view class='dd_view'>
+        <view class='dd_img_view'>
+          <image class='dd_img' src='/image/011.png'></image>
+        </view>
+        <view class='dd_text_view'>
+          订单
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

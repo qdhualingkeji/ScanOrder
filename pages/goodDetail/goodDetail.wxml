@@ -1,0 +1,67 @@
+<view class='main_view'>
+  <view class='title_view'>
+    {{good.productName}}
+  </view>
+  <image class='imgUrl_img' src='{{good.imgUrl}}' style='width:100%;height:200px;'>
+  </image>
+  <view class='name_sc_view' style='width:100%;height:50px;line-height:50px;'>
+    <view class='productName_view' style='margin-left:20px;color:#333;'>{{good.productName}}</view>
+    <view class='shoucang_view' style='float:right;margin-top:-50px;margin-right:20px;color:#747474;'>收藏</view>
+    <image class='sciu_view' src='{{shoucangImgUrl}}' catchtap='shouCang' style='width:20px;height:20px;float:right;margin-top:-35px;margin-right:65px;'/>
+  </view>
+  <view class='zhpf_msv_view' style='width:100%;height:50px;line-height:50px;'>
+    <view class='zhpf_view' style='width:85px;margin-left:20px;color:#777;'>综合评分:</view>
+    <image class='xx_img' src='{{xxaImgUrl}}' style='width:20px;height:20px;margin-top:-35px;margin-left:110px;position:absolute;'/>
+    <image class='xx_img' src='{{xxbImgUrl}}' style='width:20px;height:20px;margin-top:-35px;margin-left:135px;position:absolute;'/>
+    <image class='xx_img' src='{{xxcImgUrl}}' style='width:20px;height:20px;margin-top:-35px;margin-left:160px;position:absolute;'/>
+    <image class='xx_img' src='{{xxdImgUrl}}' style='width:20px;height:20px;margin-top:-35px;margin-left:185px;position:absolute;'/>
+    <image class='xx_img' src='{{xxeImgUrl}}' style='width:20px;height:20px;margin-top:-35px;margin-left:210px;position:absolute;'/>
+    <view class='msv_view' style='width:120px;height:50px;line-height:50px;margin-top:-50px;margin-left:250px;color:#818181;position:absolute;'>
+      月销量{{good.monthlySalesVolume}}份
+    </view>
+  </view>
+  <view class='price_opt_view' style='width:100%;height:50px;line-height:50px;'>
+    <view class='price_view' style='width:85px;margin-left:20px;color:#d75571;'>
+      {{good.price}}元
+    </view>
+    <view class='option_view'>
+      <image class='jian_img' src='/image/017.png' data-index='{{index}}' catchtap='jianGood'></image>
+      <input class="sum_input" value='{{sum}}'></input>
+      <image class='add_img' src='/image/018.png' data-index='{{index}}' catchtap='addGood'></image>
+    </view>
+  </view>
+  <view class='tclb_view'>
+    <view class='tclb_text_view'>套餐列表</view>
+  </view>
+  <view class='price_zj_view'>
+    <view class='price_view'>套餐价:{{good.price}}</view>
+    <view class='zongjia_view'>总价:{{zongjia}}</view>
+  </view>
+  <view class='spjj_view'>
+    <view class='spjj_text_view'>商品简介</view>
+  </view>
+  <view style='width:100%;'>
+  </view>
+  <view style='width:100%;height:40px;'>
+  </view>
+  <view class='space_view'>
+  </view>
+  <view class='bottom_view'>
+    <image class='yidian_img' src='/image/019.png'></image>
+    <view class='foodAmount_view'>
+      {{foodAmount}}
+    </view>
+    <view class='vs_view'></view>
+    <view class='yd_tp_view'>
+      <view class='yidian_view'>
+        已点
+      </view>
+      <view class='totalPrice_view'>
+        {{totalPrice}}
+      </view>
+    </view>
+    <view class='jrddlb_view' catchtap='addFoodToList'>
+      加入订单列表
+    </view>
+  </view>
+</view>

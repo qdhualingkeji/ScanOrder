@@ -1,0 +1,43 @@
+<!--orderedList.wxml-->
+<view class='main_view'>
+  <view class='ydlb_view'>
+    已点列表
+  </view>
+  <view class="productList_view" wx:for-items="{{productList}}">
+    <view wx:if="{{index==0}}">
+      <view class='categoryName_view'>
+        {{item.categoryName}}
+      </view>
+    </view>
+    <view wx:else>
+      <view wx:if="{{productList[index].categoryId!=productList[index-1].categoryId}}">
+        <view class='categoryName_view'>
+          {{item.categoryName}}
+        </view>
+      </view>
+    </view>
+    <view class='item_view'>
+      <image class='imgUrl_img' src='{{item.imgUrl}}'></image>
+      <view class='productName_view'>{{item.productName}}</view>
+      <view class='price_view'>{{item.price}}元</view>
+      <view class='option_view'>
+        <image class='reduce_img' src='/image/012.png' data-index='{{index}}' catchtap='reduceProduct'></image>
+        <input class="quantity_input" value='{{item.quantity}}'></input>
+        <image class='plus_img' src='/image/013.png' data-index='{{index}}' catchtap='plusProduct'></image>
+      </view>
+    </view>
+  </view>
+  <view class='space_view'></view>
+  <view class='bottom_view'>
+    <view class='jiaCai_view' catchtap='jiaCai'>
+      加菜
+    </view>
+    <view class='moneyAndAmount_view'>
+      <view class='foodTypeMount_view'>{{foodTypeMount}}份</view>
+      <view class='foodMoney_view'>共{{foodMoney}}元</view>
+    </view>
+    <view class='confirm_view'>
+      确认
+    </view>
+  </view>
+</view>

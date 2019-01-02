@@ -1,0 +1,116 @@
+/* pages/orderedList/orderedList.wxss */
+.main_view{
+  width:100%;
+}
+.ydlb_view{
+  width:100%;
+  height:50px;
+  line-height:50px;
+  color:#fff;
+  text-align:center;
+  border-bottom:#898989 solid 1px;
+  background-color:#f0665b;
+}
+.productList_view{
+  width:100%;
+}
+.categoryName_view{
+  width:100%;
+  height:30px;
+  line-height:30px;
+  font-size:15px;
+  padding-left:10px;
+  background-color:#f0f0f2;
+}
+.productList_view .item_view{
+  width:100%;
+  height:130px;
+}
+.productList_view .item_view .imgUrl_img{
+  width:120px;
+  height:120px;
+  margin-top:5px;
+  margin-left:15px;
+}
+.productList_view .item_view .productName_view{
+  margin-top:-120px;
+  margin-left:145px;
+}
+.productList_view .item_view .price_view{
+  margin-top:10px;
+  margin-left:145px;
+  font-size:15px;
+  color:#f45047;
+}
+.productList_view .item_view .option_view{
+  margin-top:-52px;
+  margin-left:265px;
+}
+.productList_view .item_view .reduce_img{
+  width:30px;
+  height:30px;
+}
+.productList_view .item_view .quantity_input{
+  width:30px;
+  height:30px;
+  text-align:center;
+  margin-top:-35px;
+  margin-left:30px;
+}
+.productList_view .item_view .plus_img{
+  width:30px;
+  height:30px;
+  margin-top:-30px;
+  margin-left:60px;
+  position:absolute;
+}
+.space_view{
+  width:100%;
+  height:50px;
+}
+.bottom_view{
+  width:100%;
+  height:50px;
+  line-height:50px;
+  background-color:#f2f2f2;
+  border-bottom:#e5e6e8 solid 1px;
+  bottom:0px;
+  position:fixed;
+  z-index:2;
+}
+.jiaCai_view{
+  width:90px;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  color:#fff;
+  margin-top:5px;
+  margin-left:10px;
+  background-color:#f35b4d;
+}
+.moneyAndAmount_view{
+  width:130px;
+  height:40px;
+  line-height:40px;
+  margin-top:-40px;
+  margin-left:130px;
+}
+.foodTypeMount_view{
+  color:#7b7778;
+}
+.foodMoney_view{
+  margin-top:-40px;
+  margin-left:50px;
+  color:#f45047;
+}
+.confirm_view{
+  width:90px;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  color:#fff;
+  float:right;
+  margin-top:-40px;
+  margin-right:10px;
+  background-color:#f35b4d;
+}
