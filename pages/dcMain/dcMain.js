@@ -2,6 +2,8 @@
 //获取应用实例
 const app = getApp()
 var dcMain;
+var allSelectedFood;
+var foodMount = 0;
 
 Page({
   data: {
@@ -44,6 +46,7 @@ Page({
       })
     }
     dcMain=this;
+    allSelectedFood=getApp().getAllSelectedFood();
   },
   onReady:function(){
     this.getShopShowInfoById();
@@ -102,6 +105,7 @@ Page({
                       goodsList: goodsListArr
                     });
                     dcMain.getGoodsListByCategoryId();
+                    dcMain.calulateMoneyAndAmount();
                   }
                 }
               }
@@ -159,6 +163,54 @@ Page({
     wx.navigateTo({
       url: '/pages/goodDetail/goodDetail?goodsdetail=' + goodsdetail,
     })
+  },
+  calulateMoneyAndAmount: function () {
+    let mount = 0, price = 0;
+    let goodsList = dcMain.data.goodsList;
+    let length = goodsList.length;
+    for (let i = 0; i < length; i++) {
+      mount += goodsList[i].quantity;
+      price += goodsList[i].price * goodsList[i].quantity;
+    }
+    dcMain.setData({
+      foodTypeMount: mount,
+      foodMoney: price
+    });
+  },
+  addGood: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let newQuantity = dcMain.data.goodsList[index].quantity + 1;
+    dcMain.data.goodsList[index].quantity = newQuantity;
+    if(allSelectedFood.length>0)
+      allSelectedFood[index].quantity = newQuantity;
+    dcMain.setData({
+      goodsList: dcMain.data.goodsList
+    });
+    dcMain.showModify();
+  },
+  removeGood: function (e) {
+    let index = e.currentTarget.dataset.index;
+    console.log(index);
+    if (dcMain.data.goodsList[index].quantity <= 0)
+      return
+    else {
+      let newQuantity = dcMain.data.goodsList[index].quantity - 1;
+      dcMain.data.goodsList[index].quantity = newQuantity;
+      if (allSelectedFood.length > 0)
+        allSelectedFood[index].quantity = newQuantity;
+    }
+    dcMain.setData({
+      goodsList: dcMain.data.goodsList
+    });
+    dcMain.showModify();
+  },
+  showModify: function () {
+    foodMount = 0;
+    let goodsList = dcMain.data.goodsList;
+    for (let i = 0; i < goodsList.length; i++) {
+      foodMount += goodsList[i].quantity;
+    }
+    dcMain.calulateMoneyAndAmount();
   },
   quJieSuan:function(){
     wx.navigateTo({

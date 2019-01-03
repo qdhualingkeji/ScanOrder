@@ -19,20 +19,23 @@
         <view class="productName_view">{{item.productName}}</view>
         <view class="price_view">￥{{item.price}}</view>
         <view class="option_view">
-          <image class="add_img" src='/image/002.png'></image>
+          <image class="remove_img" src='/image/002.png' data-index='{{index}}' catchtap='removeGood'></image>
           <input class="count_input" value='{{item.quantity}}'></input>
-          <image class="remove_img" src='/image/003.png'></image>
+          <image class="add_img" src='/image/003.png' data-index='{{index}}' catchtap='addGood'></image>
         </view>
       </view>
     </view>
   </scroll-view>
-  <view class='bottom_view' style='width:100%;height:60px;background-color:#303030;bottom:0px;position:fixed;'>
-    <image src="/image/004.png" style='width:30px;height:30px;margin-top:15px;margin-left:15px;'></image>
-    <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;background-color:#dd5911;float:right;' catchtap='quJieSuan'>
+  <view class='bottom_view'>
+    <image class='gwc_img' src="/image/004.png"></image>
+    <view class='ftm_view'>
+      {{foodTypeMount}}
+    </view>
+    <view class='qjs_view' catchtap='quJieSuan'>
     去结算
     </view>
-    <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;float:right;margin-right:70px;'>
-    ￥2.00
+    <view class='sum_price_view'>
+    ￥{{foodMoney}}
     </view>
   </view>
 </view>
