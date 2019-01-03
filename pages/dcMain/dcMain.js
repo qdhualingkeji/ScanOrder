@@ -76,40 +76,74 @@ Page({
         var data = res.data;
         if(data.code==100){
           //console.log(data.data);
+          let categoryList=data.data;
           dcMain.setData({
-            categoryList: data.data
+            categoryList: categoryList
           });
           //console.log(dcMain.data.categoryList[0].id);
           //var categoryId = dcMain.data.categoryList[0].id;
-          dcMain.getGoodsListByCategoryId();
+          let goodsListArr=[];
+          for (let i = 0; i < categoryList.length;i++){
+            wx.request({
+              url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getGoodsListByCategoryId?categoryId=' + categoryList[i].id,
+              method: 'POST',
+              success: function (res) {
+                var data = res.data;
+                if (data.code == 100) {
+                  let goodsList = data.data;
+                  for (let j = 0; j < goodsList.length; j++) {
+                    goodsList[j].quantity = 0;
+                    goodsList[j].display = "none";
+                    dcMain.initFoodQuantity(goodsList[j]);
+                  }
+                  goodsListArr=goodsListArr.concat(goodsList);
+                  if (i == categoryList.length-1){
+                    dcMain.setData({
+                      goodsList: goodsListArr
+                    });
+                    dcMain.getGoodsListByCategoryId();
+                  }
+                }
+              }
+            })
+          }
         }
       },
       fail: function (res){
-        console.log(res);
+        console.log("---"+res);
       }
     })
   },
   getGoodsListByCategoryId: function (e) {
-    //console.log(e.currentTarget.id.substring(8));
-    var categoryId;
-    if(e==undefined){
+    let categoryId;
+    if (e == undefined) {
       categoryId = dcMain.data.categoryList[0].id;
     }
-    else{
+    else {
       categoryId = e.currentTarget.id.substring(8);
     }
-    wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getGoodsListByCategoryId?categoryId=' + categoryId,
-      method: 'POST',
-      success:function(res){
-        var data = res.data;
-        if (data.code == 100){
-          dcMain.setData({
-            goodsList:data.data
-          });
-        }
+    let goodsList=dcMain.data.goodsList;
+    for (let i = 0; i < goodsList.length;i++){
+      if (goodsList[i].categoryId == categoryId){
+        goodsList[i].display="block";
       }
-    })
+      else{
+        goodsList[i].display = "none";
+      }
+    }
+    dcMain.setData({
+      goodsList: goodsList
+    });
+  },
+  initFoodQuantity: function (food) {
+    let iter = getApp().getAllSelectedFood();
+    for (let i = 0; i < iter.length; i++) {
+      if (food.categoryId == iter[i].categoryId & food.id == iter[i].id) {
+        food.quantity = iter[i].quantity;
+        return true;
+      }
+    }
+    return false;
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -124,6 +158,11 @@ Page({
     let goodsdetail=JSON.stringify(dcMain.data.goodsList[index]);
     wx.navigateTo({
       url: '/pages/goodDetail/goodDetail?goodsdetail=' + goodsdetail,
+    })
+  },
+  quJieSuan:function(){
+    wx.navigateTo({
+      url: '/pages/orderedList/orderedList',
     })
   }
 })

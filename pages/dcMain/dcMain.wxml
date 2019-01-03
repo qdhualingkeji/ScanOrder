@@ -14,21 +14,21 @@
   </scroll-view>
   <scroll-view class='goodsList_sv' scroll-y="true">
     <view class="goodsList_view" id="goodsList_view" wx:for-items="{{goodsList}}">
-      <view class="item" data-index='{{index}}' catchtap='goGoodsdetail'>
-        <image class="goods_img" src="{{item.imgUrl}}"></image>
+      <view class="item" style='display:{{item.display}};' data-categoryId='{{item.categoryId}}'>
+        <image class="goods_img" src="{{item.imgUrl}}" data-index='{{index}}' catchtap='goGoodsdetail'></image>
         <view class="productName_view">{{item.productName}}</view>
         <view class="price_view">￥{{item.price}}</view>
         <view class="option_view">
           <image class="add_img" src='/image/002.png'></image>
-          <input class="count_input" value='0'></input>
+          <input class="count_input" value='{{item.quantity}}'></input>
           <image class="remove_img" src='/image/003.png'></image>
         </view>
       </view>
     </view>
   </scroll-view>
-  <view style='width:100%;height:60px;background-color:#303030;'>
+  <view class='bottom_view' style='width:100%;height:60px;background-color:#303030;bottom:0px;position:fixed;'>
     <image src="/image/004.png" style='width:30px;height:30px;margin-top:15px;margin-left:15px;'></image>
-    <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;background-color:#dd5911;float:right;'>
+    <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;background-color:#dd5911;float:right;' catchtap='quJieSuan'>
     去结算
     </view>
     <view style='width:100px;height:60px;line-height:60px;text-align:center;color:#fff;float:right;margin-right:70px;'>

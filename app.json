@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/dcMain/dcMain",
     "pages/orderedList/orderedList",
     "pages/orderDetail/orderDetail",
-    "pages/dcMain/dcMain",
     "pages/goodDetail/goodDetail",
     "pages/logs/logs"
   ],
