@@ -213,8 +213,61 @@ Page({
     dcMain.calulateMoneyAndAmount();
   },
   quJieSuan:function(){
-    wx.navigateTo({
-      url: '/pages/orderedList/orderedList',
+    let goodsList=dcMain.data.goodsList;
+    dcMain.addFoodToList(goodsList);
+  },
+  addFoodToList: function (goodsList){
+    let gsList=[];
+    for (let i = 0; i < goodsList.length; i++) {
+      let g = { categoryId: "", categoryName: "", id: "", quantity: "", imgUrl: "", price: "", productName:""};
+      g.categoryId = goodsList[i].categoryId;
+      g.categoryName = goodsList[i].categoryName;
+      g.id=goodsList[i].id;
+      g.quantity = goodsList[i].quantity;
+      g.imgUrl=goodsList[i].imgUrl;
+      g.price=goodsList[i].price;
+      g.productName=goodsList[i].productName;
+      gsList.push(g);
+    }
+    dcMain.checkIfAlreadyExistOrder(gsList);
+  },
+  checkIfAlreadyExistOrder: function (gsList){
+    wx.request({
+      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder?shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
+      method: 'POST',
+      success: function (res) {
+        console.log(res);
+        var data = res.data;
+        if (data.code == 100) {
+          dcMain.nextAction(gsList,"xiadan");
+        }
+        else{
+          dcMain.nextAction(gsList,"tiaodan");
+        }
+      }
     })
+  },
+  nextAction: function (gsList, type){
+    for (let i = 0; i < gsList.length;i++){
+      if (!dcMain.checkIfExist(gsList[i])){
+        console.log(1111111);
+      }
+    }
+    wx.navigateTo({
+      url: '/pages/orderedList/orderedList?type=' + type,
+    })
+  },
+  checkIfExist: function (food){
+    let allSelectedFood=getApp().getAllSelectedFood();
+    for (let i = 0; i < allSelectedFood.length;i++){
+      let f=allSelectedFood[i];
+      if(food.categoryId==f.categoryId){
+        if(food.id==f.id){
+          f.quantity = food.quantity;
+          return true;
+        }
+      }
+    }
+    return false;
   }
 })

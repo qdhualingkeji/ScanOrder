@@ -120,7 +120,12 @@ Page({
     //selectorQuery.select("#quantity_input" + id).boundingClientRect();
     let newQuantity =orderedList.data.productList[index].quantity+1;
     orderedList.data.productList[index].quantity = newQuantity;
-    getApp().getAllSelectedFood()[index].quantity = newQuantity;
+    let allSelectedFood=getApp().getAllSelectedFood();
+    if(allSelectedFood[index]==undefined){
+      let selectedFood;
+      allSelectedFood[index] = selectedFood;
+    }
+    allSelectedFood[index].quantity = newQuantity;
     orderedList.setData({
       productList: orderedList.data.productList
     });

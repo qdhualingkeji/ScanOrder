@@ -41,7 +41,7 @@ App({
   addSelectedFood:function(food){
     for (let i = 0; i < allSelectedFood.length;i++){
       let existFood=allSelectedFood[i];
-      if (existFood.categoryId == food.categoryId){
+      if (existFood.categoryId == food.categoryId & existFood.id == food.id){
         allSelectedFood[i]=food;
         return;
       }
