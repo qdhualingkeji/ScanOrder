@@ -1,5 +1,6 @@
 //app.js
 var allSelectedFood=[];
+var zhuoNo="001";
 
 App({
   onLaunch: function () {
@@ -52,5 +53,8 @@ App({
   getAllSelectedFood: function () {
     //console.log(allSelectedFood);
     return allSelectedFood;
+  },
+  getZhuoNo:function(){
+    return zhuoNo;
   }
 })

@@ -1,0 +1,58 @@
+<view style='width:100%;'>
+  <view style='width:100%;height:50px;line-height:50px;color:#fff;text-align:center;background-color:#f0665b;'>
+    确认订单
+  </view>
+  <view style='width:100%;height:150px;background-color:#f0665b;'>
+    <image src='{{imgUrl}}' style='width:80px;height:80px;margin-top:20px;margin-left:30px;'></image>
+    <view style='width:80px;height:40px;line-height:40px;margin-left:30px;text-align:center;color:#fff;'>{{nickName}}</view>
+    <view class='show_location_view' style='width:200px;height:40px;line-height:40px;margin-top:-120px;margin-left:160px;border-bottom:#fff dashed 1px;'>
+      <image src='/image/021.png' style='width:20px;height:20px;margin-left:5px;'></image>
+      <view style='margin-top:-40px;margin-left:30px;color:#fff;'>桌号</view>
+      <view class='zhuohao_view' style='margin-top:-40px;margin-left:80px;color:#fff;'>{{zhuohao}}</view>
+    </view>
+    <view class='consume_view' style='width:200px;height:40px;line-height:40px;margin-left:160px;'>
+      <view class='foodamount_view' style='color:#fff;'>{{mount}}份</view>
+      <view class='moneyamount_view' style='color:#fff;margin-top:-40px;margin-left:60px;'>共{{money}}元</view>
+    </view>
+  </view>
+  <view style='width:100%;height:50px;line-height:50px;background-color:#ededed;padding-left:30px;'>
+    已点商品
+  </view>
+  <view class='ofList_view' wx:for-items="{{orderedFood.productList}}">
+    <view class='item_view'>
+      <view class='foodName_view'>{{item.productName}}</view>
+      <view class='foodPrice_view'>{{item.price}}元</view>
+      <view class='foodMount_view'>{{item.quantity}}</view>
+    </view>
+  </view>
+  <view style='width:100%;height:40px;line-height:40px;background-color:#fff;'>
+    <view style='float:right;margin-right:20px;'>
+      总价:{{totalAmount}}元
+    </view>
+  </view>
+  <view style='width:100%;height:40px;line-height:40px;background-color:#fff;'>
+    <view style='float:right;margin-right:20px;color:#cc0000;'>
+      总价:{{shiFu}}元
+    </view>
+  </view>
+  <view class='space_view'>
+  </view>
+  <view class='bottom_view'>
+    <image class='yidian_img' src='/image/019.png'></image>
+    <view class='foodAmount_view'>
+      {{mount1}}
+    </view>
+    <view class='vs_view'></view>
+    <view class='yd_tp_view'>
+      <view class='yidian_view'>
+        已点
+      </view>
+      <view class='totalPrice_view'>
+        {{money1}}元
+      </view>
+    </view>
+    <view class='bottompay_view' catchtap='addFoodToList'>
+      {{pay}}
+    </view>
+  </view>
+</view>

@@ -3,6 +3,7 @@ const app = getApp()
 var orderedList;
 var selectorQuery;
 var foodMount=0;
+var type;
 
 Page({
 
@@ -18,6 +19,7 @@ Page({
    */
   onLoad: function (options) {
     orderedList = this;
+    type = options.type;
     selectorQuery = wx.createSelectorQuery();
   },
 
@@ -145,6 +147,9 @@ Page({
     });
     orderedList.showModify();
   },
+  deleteProduct:function(){
+
+  },
   showModify:function(){
     foodMount = 0;
     let productList=orderedList.data.productList;
@@ -156,6 +161,22 @@ Page({
   jiaCai:function(){
     wx.navigateTo({
       url: '/pages/dcMain/dcMain',
+    })
+  },
+  confirm:function(){
+    if (foodMount <= 0){
+      wx.showToast({
+        title: '食品数量不符合要求',
+        duration:'2000'
+      })
+    }
+    else{
+      orderedList.toConfirm();
+    }
+  },
+  toConfirm:function(){
+    wx.navigateTo({
+      url: '/pages/comfirmOrder/comfirmOrder?type=tiaodan'// + type,
     })
   }
 })

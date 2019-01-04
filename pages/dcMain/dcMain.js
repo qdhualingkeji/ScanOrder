@@ -250,7 +250,8 @@ Page({
   nextAction: function (gsList, type){
     for (let i = 0; i < gsList.length;i++){
       if (!dcMain.checkIfExist(gsList[i])){
-        console.log(1111111);
+        //console.log(1111111);
+        getApp().addSelectedFood(gsList[i]);
       }
     }
     wx.navigateTo({
