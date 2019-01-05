@@ -51,7 +51,7 @@ Page({
     allSelectedFood=getApp().getAllSelectedFood();
     strJiaCai=options.jiacai;
     //orderNumber=wx.getStorageSync("orderNumber");
-    orderNumber = "1901055929510278";
+    orderNumber ="1901055929510278";
   },
   onReady:function(){
     this.getShopShowInfoById();
@@ -304,7 +304,7 @@ Page({
   nextAction: function (gsList, type){
     for (let i = 0; i < gsList.length;i++){
       if (gsList[i].quantity>0&!dcMain.checkIfExist(gsList[i])){
-        //console.log(1111111);
+        //console.log("=====" + dcMain.checkIfExist(gsList[i]));
         getApp().addSelectedFood(gsList[i]);
       }
     }

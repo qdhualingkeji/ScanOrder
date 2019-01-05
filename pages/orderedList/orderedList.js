@@ -78,23 +78,25 @@ Page({
       method: 'POST',
       success: function (res) {
         var data = res.data;
-        //console.log("res===" + data.code);
         let productList=[];
         if (data.code == 100) {
           productList = data.data.productList;
 
-          for (let i = 0; i < productList.length;i++){
+          for (let i = 0; i < productList.length; i++) {
+            //console.log("food===" + orderedList.checkIfExist(productList[0]));
             if(!orderedList.checkIfExist(productList[i])){
               getApp().addSelectedFood(productList[i]);
             }
           }
         }
         let ofList=getApp().getAllSelectedFood();
-        for (let i = 0; i < ofList.length;i++){
+        /*
+        for (let i = 0; i < ofList.length; i++) {
           productList.push(ofList[i]);
         }
+        */
         orderedList.setData({
-          productList: productList
+          productList: ofList
         });
         orderedList.calulateMoneyAndAmount();
       }
