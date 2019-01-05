@@ -5,6 +5,7 @@ var dcMain;
 var allSelectedFood;
 var foodMount = 0;
 var strJiaCai;
+var orderNumber;
 
 Page({
   data: {
@@ -49,6 +50,8 @@ Page({
     dcMain=this;
     allSelectedFood=getApp().getAllSelectedFood();
     strJiaCai=options.jiacai;
+    //orderNumber=wx.getStorageSync("orderNumber");
+    orderNumber = "1901055929510278";
   },
   onReady:function(){
     this.getShopShowInfoById();
@@ -100,12 +103,9 @@ Page({
                     goodsList[j].display = "none";
                   }
                   goodsListArr=goodsListArr.concat(goodsList);
+                  console.log(goodsListArr);
                   if (i == categoryList.length - 1) {
                     dcMain.initFoodQuantity(goodsListArr);
-                    setTimeout(function(){
-                      dcMain.getGoodsListByCategoryId();
-                      dcMain.calulateMoneyAndAmount();
-                    },2000);
                   }
                 }
               }
@@ -155,13 +155,16 @@ Page({
       dcMain.setData({
         goodsList: foodsList
       });
+
+      dcMain.getGoodsListByCategoryId();
+      dcMain.calulateMoneyAndAmount();
     }
-    else{
+    else if (orderNumber!=""){
       wx.request({
-        url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber=1812283456410058&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
+        url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber="+orderNumber+"&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
         method: 'POST',
         success: function (res) {
-          console.log(res);
+          //console.log(res);
           var data = res.data;
           if (data.code == 100) {
             var productList = data.data.productList;
@@ -170,9 +173,7 @@ Page({
               for (let j = 0; j < productList.length; j++) {
                 let product = productList[j];
                 if ((food.categoryId == product.categoryId) & (food.id == product.id)) {
-                  console.log(111);
                   food.quantity = product.quantity;
-                  foodsList[i] = food;
                   break;
                 }
               }
@@ -181,9 +182,20 @@ Page({
             dcMain.setData({
               goodsList: foodsList
             });
+
+            dcMain.getGoodsListByCategoryId();
+            dcMain.calulateMoneyAndAmount();
           }
         }
       })
+    }
+    else{
+      dcMain.setData({
+        goodsList: foodsList
+      });
+
+      dcMain.getGoodsListByCategoryId();
+      dcMain.calulateMoneyAndAmount();
     }
   },
   getUserInfo: function(e) {
@@ -218,8 +230,11 @@ Page({
     let index = e.currentTarget.dataset.index;
     let newQuantity = dcMain.data.goodsList[index].quantity + 1;
     dcMain.data.goodsList[index].quantity = newQuantity;
+    /*
+    console.log(allSelectedFood[index]);
     if(allSelectedFood.length>0)
       allSelectedFood[index].quantity = newQuantity;
+      */
     dcMain.setData({
       goodsList: dcMain.data.goodsList
     });
@@ -233,8 +248,10 @@ Page({
     else {
       let newQuantity = dcMain.data.goodsList[index].quantity - 1;
       dcMain.data.goodsList[index].quantity = newQuantity;
+      /*
       if (allSelectedFood.length > 0)
         allSelectedFood[index].quantity = newQuantity;
+        */
     }
     dcMain.setData({
       goodsList: dcMain.data.goodsList

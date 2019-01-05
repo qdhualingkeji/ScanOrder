@@ -51,7 +51,7 @@ App({
     return;
   },
   getAllSelectedFood: function () {
-    //console.log(allSelectedFood);
+    //console.log("allSelectedFood==="+allSelectedFood);
     return allSelectedFood;
   },
   getZhuoNo:function(){

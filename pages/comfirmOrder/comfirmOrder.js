@@ -26,7 +26,6 @@ Page({
     comfirmOrder=this;
 
     let pay; 
-    options.type ="tiaodan";
     type = options.type;
     if (type =="xiadan")
       pay = "确认下单";
@@ -145,7 +144,6 @@ Page({
     })
   },
   bottompay:function(){
-    type = "tiaodan";
     if (type == "xiadan")
       comfirmOrder.commitOrderBtn();
     else if (type == "tiaodan")
@@ -162,11 +160,23 @@ Page({
       url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/confirmOrderButton?shopId=" + shopId + "&remark=" + remark + "&jsonProductList=" + jsonStr + "&discountAmount=" + discountAmount + "&seatName=" + seatName + "&orderAmount=" + orderAmount + "&discountCouponId=" + discountCouponId +"&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
       method: 'POST',
       success: function (res) {
-        console.log(res);
+        console.log("res==="+JSON.stringify(res));
         var data = res.data;
-        console.log(data);
+        console.log("data==="+data);
         if (data.code == 100) {
-
+          wx.showToast({
+            title: '下单成功',
+            duration:2000
+          })
+          wx.navigateTo({
+            url: '/pages/dcMain/dcMain'
+          })
+        }
+        else{
+          wx.showToast({
+            title: '下单失败',
+            duration: 2000
+          })
         }
       }
     })

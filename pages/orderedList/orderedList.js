@@ -74,16 +74,14 @@ Page({
 
   getOrderDetailsByOrderNumber:function(){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber=1812283456410058&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
+      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber=1901055929510278&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
       method: 'POST',
       success: function (res) {
-        console.log(res);
         var data = res.data;
+        //console.log("res===" + data.code);
+        let productList=[];
         if (data.code == 100) {
-          var productList = data.data.productList;
-          orderedList.setData({
-            productList: productList
-          });
+          productList = data.data.productList;
 
           for (let i = 0; i < productList.length;i++){
             if(!orderedList.checkIfExist(productList[i])){
@@ -91,6 +89,13 @@ Page({
             }
           }
         }
+        let ofList=getApp().getAllSelectedFood();
+        for (let i = 0; i < ofList.length;i++){
+          productList.push(ofList[i]);
+        }
+        orderedList.setData({
+          productList: productList
+        });
         orderedList.calulateMoneyAndAmount();
       }
     })
@@ -175,7 +180,7 @@ Page({
     if (foodMount <= 0){
       wx.showToast({
         title: '食品数量不符合要求',
-        duration:'2000'
+        duration:2000
       })
     }
     else{
@@ -184,7 +189,7 @@ Page({
   },
   toConfirm:function(){
     wx.navigateTo({
-      url: '/pages/comfirmOrder/comfirmOrder?type=tiaodan'// + type,
+      url: '/pages/comfirmOrder/comfirmOrder?type=' + type,
     })
   }
 })
