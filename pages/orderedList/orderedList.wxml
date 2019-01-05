@@ -24,7 +24,7 @@
         <image class='reduce_img' src='/image/012.png' data-index='{{index}}' catchtap='reduceProduct'></image>
         <input class="quantity_input" value='{{item.quantity}}'></input>
         <image class='plus_img' src='/image/013.png' data-index='{{index}}' catchtap='plusProduct'></image>
-        <view class='delete_view' catchtap='deleteProduct'>
+        <view class='delete_view' data-index='{{index}}' catchtap='deleteProduct'>
           移除
         </view>
       </view>

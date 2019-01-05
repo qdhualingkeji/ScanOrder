@@ -51,7 +51,7 @@
         {{money1}}元
       </view>
     </view>
-    <view class='bottompay_view' catchtap='addFoodToList'>
+    <view class='bottompay_view' catchtap='bottompay'>
       {{pay}}
     </view>
   </view>

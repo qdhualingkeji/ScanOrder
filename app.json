@@ -1,10 +1,10 @@
 {
   "pages":[
+    "pages/dcMain/dcMain",
     "pages/orderedList/orderedList",
     "pages/comfirmOrder/comfirmOrder",
     "pages/goodDetail/goodDetail",
     "pages/orderDetail/orderDetail",
-    "pages/dcMain/dcMain",
     "pages/logs/logs"
   ],
   "window":{

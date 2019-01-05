@@ -147,8 +147,16 @@ Page({
     });
     orderedList.showModify();
   },
-  deleteProduct:function(){
-
+  deleteProduct:function(e){
+    let index=e.currentTarget.dataset.index;
+    let productList=orderedList.data.productList;
+    productList.splice(index, 1);
+    console.log(productList);
+    orderedList.setData({
+      productList: productList
+    });
+    getApp().getAllSelectedFood().splice(index, 1);
+    orderedList.showModify();
   },
   showModify:function(){
     foodMount = 0;
@@ -160,7 +168,7 @@ Page({
   },
   jiaCai:function(){
     wx.navigateTo({
-      url: '/pages/dcMain/dcMain',
+      url: '/pages/dcMain/dcMain?jiacai=jiacai',
     })
   },
   confirm:function(){

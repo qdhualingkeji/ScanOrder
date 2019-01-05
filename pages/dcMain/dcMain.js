@@ -4,6 +4,7 @@ const app = getApp()
 var dcMain;
 var allSelectedFood;
 var foodMount = 0;
+var strJiaCai;
 
 Page({
   data: {
@@ -18,7 +19,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function (options) {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -47,6 +48,7 @@ Page({
     }
     dcMain=this;
     allSelectedFood=getApp().getAllSelectedFood();
+    strJiaCai=options.jiacai;
   },
   onReady:function(){
     this.getShopShowInfoById();
@@ -78,7 +80,6 @@ Page({
       success:function(res){
         var data = res.data;
         if(data.code==100){
-          //console.log(data.data);
           let categoryList=data.data;
           dcMain.setData({
             categoryList: categoryList
@@ -97,15 +98,14 @@ Page({
                   for (let j = 0; j < goodsList.length; j++) {
                     goodsList[j].quantity = 0;
                     goodsList[j].display = "none";
-                    dcMain.initFoodQuantity(goodsList[j]);
                   }
                   goodsListArr=goodsListArr.concat(goodsList);
-                  if (i == categoryList.length-1){
-                    dcMain.setData({
-                      goodsList: goodsListArr
-                    });
-                    dcMain.getGoodsListByCategoryId();
-                    dcMain.calulateMoneyAndAmount();
+                  if (i == categoryList.length - 1) {
+                    dcMain.initFoodQuantity(goodsListArr);
+                    setTimeout(function(){
+                      dcMain.getGoodsListByCategoryId();
+                      dcMain.calulateMoneyAndAmount();
+                    },2000);
                   }
                 }
               }
@@ -139,15 +139,52 @@ Page({
       goodsList: goodsList
     });
   },
-  initFoodQuantity: function (food) {
-    let iter = getApp().getAllSelectedFood();
-    for (let i = 0; i < iter.length; i++) {
-      if (food.categoryId == iter[i].categoryId & food.id == iter[i].id) {
-        food.quantity = iter[i].quantity;
-        return true;
+  initFoodQuantity: function (foodsList) {
+    if(strJiaCai=="jiacai"){
+      for (let i = 0; i < foodsList.length;i++){
+        let food=foodsList[i];
+        let iter = getApp().getAllSelectedFood();
+        for (let j = 0; j < iter.length; j++) {
+          if (food.categoryId == iter[j].categoryId & food.id == iter[j].id) {
+            food.quantity = iter[j].quantity;
+            break;
+          }
+        }
       }
+
+      dcMain.setData({
+        goodsList: foodsList
+      });
     }
-    return false;
+    else{
+      wx.request({
+        url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber=1812283456410058&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
+        method: 'POST',
+        success: function (res) {
+          console.log(res);
+          var data = res.data;
+          if (data.code == 100) {
+            var productList = data.data.productList;
+            for (let i = 0; i < foodsList.length; i++){
+              let food = foodsList[i];
+              for (let j = 0; j < productList.length; j++) {
+                let product = productList[j];
+                if ((food.categoryId == product.categoryId) & (food.id == product.id)) {
+                  console.log(111);
+                  food.quantity = product.quantity;
+                  foodsList[i] = food;
+                  break;
+                }
+              }
+            }
+
+            dcMain.setData({
+              goodsList: foodsList
+            });
+          }
+        }
+      })
+    }
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -249,7 +286,7 @@ Page({
   },
   nextAction: function (gsList, type){
     for (let i = 0; i < gsList.length;i++){
-      if (!dcMain.checkIfExist(gsList[i])){
+      if (gsList[i].quantity>0&!dcMain.checkIfExist(gsList[i])){
         //console.log(1111111);
         getApp().addSelectedFood(gsList[i]);
       }

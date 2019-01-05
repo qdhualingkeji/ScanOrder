@@ -2,6 +2,13 @@ var comfirmOrder;
 var mount = 0;
 var money = 0;
 var productStr = "";
+var type;
+var seatName;
+var discountAmount=0;
+var remark;
+var orderAmount=0;
+var discountCouponId=0;
+var orderNumber;
 
 Page({
 
@@ -19,10 +26,11 @@ Page({
     comfirmOrder=this;
 
     let pay; 
-    options.pay ="tiaodan";
-    if (options.pay =="xiadan")
+    options.type ="tiaodan";
+    type = options.type;
+    if (type =="xiadan")
       pay = "确认下单";
-    else if (options.pay == "tiaodan")
+    else if (type == "tiaodan")
       pay = "确认调单";
     let orderedFood = { productList: [] }
     comfirmOrder.setData({
@@ -135,5 +143,73 @@ Page({
         }
       }
     })
+  },
+  bottompay:function(){
+    type = "tiaodan";
+    if (type == "xiadan")
+      comfirmOrder.commitOrderBtn();
+    else if (type == "tiaodan")
+      comfirmOrder.comfirmTiaoDan();
+  },
+  commitOrderBtn:function(){
+    seatName = getApp().getZhuoNo();
+    discountAmount=0;
+    remark="";
+    orderAmount=comfirmOrder.data.shiFu;
+    let jsonStr = comfirmOrder.createJsonStr();
+    let shopId="82";
+    wx.request({
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/confirmOrderButton?shopId=" + shopId + "&remark=" + remark + "&jsonProductList=" + jsonStr + "&discountAmount=" + discountAmount + "&seatName=" + seatName + "&orderAmount=" + orderAmount + "&discountCouponId=" + discountCouponId +"&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
+      method: 'POST',
+      success: function (res) {
+        console.log(res);
+        var data = res.data;
+        console.log(data);
+        if (data.code == 100) {
+
+        }
+      }
+    })
+  },
+  comfirmTiaoDan:function(){
+    orderNumber = wx.getStorageSync("orderNumber");
+    seatName = wx.getStorageSync("zhuoNo");
+    let shopId = wx.getStorageSync("shopId");
+
+    wx.request({
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/enterAdjustOrder?orderNumber=" + orderNumber + "&shopId=" + shopId + "&seatName=" + seatName + "&jsonProductList=" + productStr + "&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
+      method: 'POST',
+      success: function (res) {
+        console.log(res);
+        var data = res.data;
+        console.log(data);
+        if (data.code == 100) {
+          wx.showToast({
+            title: '发送调单请求成功，请等待商家确认',
+            duration:'2000'
+          })
+          wx.navigateTo({
+            url: '/pages/dcMain/dcMain',
+          })
+        }
+        else{
+          wx.showToast({
+            title: '商家未接单，无法调单',
+            duration: '2000'
+          })
+        }
+      }
+    })
+  },
+  createJsonStr:function(){
+    let result="";
+    result+="[";
+    let productList=comfirmOrder.data.orderedFood.productList;
+    for (let i = 0; i < productList.length;i++){
+      result += JSON.stringify(productList[i])+",";
+    }
+    result=result.substring(0, result.length-1);
+    result += "]";
+    return result;
   }
 })
