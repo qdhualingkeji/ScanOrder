@@ -59,8 +59,12 @@ Page({
   },
   getShopShowInfoById:function(){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/shopDataAPI/getShopShowInfoById?shopId=80',
+      url: 'http://120.27.5.36:8080/htkApp/API/shopDataAPI/getShopShowInfoById',
       method: 'POST',
+      data: { shopId: 80},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res){
         console.log(res);
         var data = res.data;
@@ -75,11 +79,13 @@ Page({
     })
   },
   getCategoryList:function(){
-    //console.log(111111111);
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getCategoryList?shopId=82',
-      data: { shopId:"82"},
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getCategoryList",
       method: 'POST',
+      data: { shopId:82},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success:function(res){
         var data = res.data;
         if(data.code==100){
@@ -92,10 +98,15 @@ Page({
           let goodsListArr=[];
           for (let i = 0; i < categoryList.length;i++){
             wx.request({
-              url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getGoodsListByCategoryId?categoryId=' + categoryList[i].id,
+              url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getGoodsListByCategoryId',
               method: 'POST',
+              data: { categoryId: categoryList[i].id, token: "ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+              header: {
+                'content-type': 'application/x-www-form-urlencoded',
+              },
               success: function (res) {
                 var data = res.data;
+                //console.log("data===" + JSON.stringify(data));
                 if (data.code == 100) {
                   let goodsList = data.data;
                   for (let j = 0; j < goodsList.length; j++) {
@@ -103,7 +114,6 @@ Page({
                     goodsList[j].display = "none";
                   }
                   goodsListArr=goodsListArr.concat(goodsList);
-                  console.log(goodsListArr);
                   if (i == categoryList.length - 1) {
                     dcMain.initFoodQuantity(goodsListArr);
                   }
@@ -161,8 +171,12 @@ Page({
     }
     else if (orderNumber!=""){
       wx.request({
-        url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber="+orderNumber+"&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
+        url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber",
         method: 'POST',
+        data: { orderNumber: orderNumber, shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
         success: function (res) {
           //console.log(res);
           var data = res.data;
@@ -287,8 +301,12 @@ Page({
   },
   checkIfAlreadyExistOrder: function (gsList){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder?shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
+      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder?=&=',
       method: 'POST',
+      data: { shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
         console.log(res);
         var data = res.data;

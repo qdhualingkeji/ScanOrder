@@ -182,13 +182,23 @@ Page({
     })
   },
   comfirmTiaoDan:function(){
+    /*
     orderNumber = wx.getStorageSync("orderNumber");
     seatName = wx.getStorageSync("zhuoNo");
     let shopId = wx.getStorageSync("shopId");
+    */
+    orderNumber ="1901055929510278";
+    seatName="3";
+    let shopId="82";
+    productStr ="[{productId:47,productName:美味鸡腿堡,quantity:1,price:10.0}]";
 
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/enterAdjustOrder?orderNumber=" + orderNumber + "&shopId=" + shopId + "&seatName=" + seatName + "&jsonProductList=" + productStr + "&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/enterAdjustOrder",
       method: 'POST',
+      data: { orderNumber: orderNumber, shopId: shopId, seatName: seatName, jsonProductList: productStr, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
         console.log(res);
         var data = res.data;
@@ -196,7 +206,7 @@ Page({
         if (data.code == 100) {
           wx.showToast({
             title: '发送调单请求成功，请等待商家确认',
-            duration:'2000'
+            duration:2000
           })
           wx.navigateTo({
             url: '/pages/dcMain/dcMain',
@@ -205,7 +215,7 @@ Page({
         else{
           wx.showToast({
             title: '商家未接单，无法调单',
-            duration: '2000'
+            duration: 2000
           })
         }
       }

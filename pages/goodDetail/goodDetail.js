@@ -124,7 +124,7 @@ Page({
     });
   },
   refreshUI:function(){
-    let collectState=goodDetail.data.collectState;
+    let collectState = goodDetail.data.good.collectState;
     var shoucangImgUrl;
     if (collectState==1){
       shoucangImgUrl="/image/020.png";
@@ -159,10 +159,15 @@ Page({
     let good=goodDetail.data.good;
     let productId = good.id;
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/addToWishListById?token=ba1cef27-3b9e-4bbe-bbca-f679ece55475&productId=" + productId + "&state=" + isCollect,
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/addToWishListById",
       method: 'POST',
+      data: { token: "ba1cef27-3b9e-4bbe-bbca-f679ece55475", productId: productId, state: isCollect},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
         var data = res.data;
+        //console.log(data);
         if (data.code == 100 & good.collectState==1) {
           goodDetail.data.good.collectState=0;
           goodDetail.setData({
