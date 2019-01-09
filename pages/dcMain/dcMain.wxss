@@ -116,11 +116,15 @@
   margin-left:20px;
   position:absolute;
 }
+.space_view{
+  width:100%;
+  height:115px;
+}
 .bottom_view{
   width:100%;
   height:60px;
   background-color:#303030;
-  bottom:0px;
+  bottom:55px;
   position:fixed;
 }
 .gwc_img{
@@ -158,4 +162,67 @@
   color:#fff;
   float:right;
   margin-right:70px;
+}
+.bottom2_view{
+  width:100%;
+  height:55px;
+  line-height:55px;
+  bottom:0px;
+  background-color:#fff;
+  position:fixed;
+}
+.bottom2_view .but_view{
+  width:255px;
+  height:55px;
+  margin:0 auto;
+}
+.dc_view{
+  width:55px;
+  height:55px;
+  line-height:55px;
+}
+.dc_img_view{
+  width:55px;
+  height:25px;
+  line-height:25px;
+  text-align:center;
+  position:absolute;
+}
+.dc_img{
+  width:25px;
+  height:25px;
+  margin-top:5px;
+}
+.dc_text_view{
+  width:55px;
+  margin-top:15px;
+  color:#cd2222;
+  text-align:center;
+  position:absolute;
+}
+.dd_view{
+  width:55px;
+  height:55px;
+  line-height:55px;
+  margin-top:-55px;
+  margin-left:200px;
+}
+.dd_img_view{
+  width:55px;
+  height:25px;
+  line-height:25px;
+  text-align:center;
+  position:absolute;
+}
+.dd_img{
+  width:25px;
+  height:25px;
+  margin-top:5px;
+}
+.dd_text_view{
+  width:55px;
+  margin-top:15px;
+  color:#666;
+  text-align:center;
+  position:absolute;
 }

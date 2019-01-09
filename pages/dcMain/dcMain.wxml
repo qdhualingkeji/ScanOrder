@@ -26,6 +26,7 @@
       </view>
     </view>
   </scroll-view>
+  <view class='space_view'></view>
   <view class='bottom_view'>
     <image class='gwc_img' src="/image/004.png"></image>
     <view class='ftm_view'>
@@ -36,6 +37,26 @@
     </view>
     <view class='sum_price_view'>
     ￥{{foodMoney}}
+    </view>
+  </view>
+  <view class='bottom2_view'>
+    <view class='but_view'>
+      <view class='dc_view'>
+        <view class='dc_img_view'>
+          <image class='dc_img' src='/image/022.png'></image>
+        </view>
+        <view class='dc_text_view'>
+          点菜
+        </view>
+      </view>
+      <view class='dd_view' catchtap='goOrder'>
+        <view class='dd_img_view'>
+          <image class='dd_img' src='/image/023.png'></image>
+        </view>
+        <view class='dd_text_view'>
+          订单
+        </view>
+      </view>
     </view>
   </view>
 </view>

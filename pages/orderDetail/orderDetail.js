@@ -1,7 +1,7 @@
 //获取应用实例
 const app = getApp()
 var orderDetail;
-var orderNumber ="1812283456410058";
+var orderNumber;
 
 Page({
 
@@ -16,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     orderDetail = this;
-    //wx.setStorageSync("aaa", 11111);
+    orderNumber = wx.getStorageSync("orderNumber");
     //console.log(wx.getStorageSync("aaa"));
   },
 
@@ -70,8 +70,12 @@ Page({
   },
   getOrderDetailsByOrderNumber:function(){
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber?orderNumber="+orderNumber+"&shopId=82&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber",
       method: 'POST',
+      data: { orderNumber: orderNumber, shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
         console.log(res);
         var data = res.data;
@@ -101,7 +105,8 @@ Page({
             paid: paid,
             cook: cook,
             finished: finished,
-            stateTip: stateTip 
+            stateTip: stateTip,
+            orderNumber: orderNumber
           });
 
           orderDetail.setData({
@@ -183,8 +188,12 @@ Page({
   cuiDanBtn:function(){
     //put
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/reminderInterface?orderNumber=' + orderNumber,
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/reminderInterface",
       method: 'POST',
+      data: { orderNumber: orderNumber},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
         console.log(res);
         var data = res.data;
@@ -201,6 +210,11 @@ Page({
           })
         }
       }
+    })
+  },
+  goDianCai:function(){
+    wx.navigateTo({
+      url: '/pages/dcMain/dcMain',
     })
   }
 })

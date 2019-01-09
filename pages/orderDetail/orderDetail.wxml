@@ -26,7 +26,7 @@
     </view>
   </view>
   <view class='order_view'>
-    <view class='orderNumber_view'>订单:123456789</view>
+    <view class='orderNumber_view'>订单:{{orderNumber}}</view>
     <view class='orderTime_view'>{{orderTime}}</view>
     <view class='stateTip_view'>{{stateTip}}</view>
   </view>
@@ -60,7 +60,7 @@
   <view class='space2_view'></view>
   <view class='bottom_view'>
     <view class='but_view'>
-      <view class='dc_view'>
+      <view class='dc_view' catchtap='goDianCai'>
         <view class='dc_img_view'>
           <image class='dc_img' src='/image/010.png'></image>
         </view>

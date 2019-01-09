@@ -108,14 +108,14 @@ Page({
       mount += productList[i].quantity;
       money += productList[i].price * productList[i].quantity;
       if (i < (productList.length - 1)) {
-        productStr += JSON.stringify(productList[i]) + ",";
+        productStr += comfirmOrder.convertFoodToString(productList[i]) + ",";
       } else {
-        productStr += JSON.stringify(productList[i]);
+        productStr += comfirmOrder.convertFoodToString(productList[i]);
       }
     } 
     productStr = "[" + productStr + "]";
     comfirmOrder.refreshUI();
-    console.log(productStr);
+    //console.log("productStr==="+productStr);
   },
   refreshUI:function(){
     comfirmOrder.setData({
@@ -192,12 +192,10 @@ Page({
     })
   },
   comfirmTiaoDan:function(){
-    /*
     orderNumber = wx.getStorageSync("orderNumber");
-    seatName = wx.getStorageSync("zhuoNo");
-    let shopId = wx.getStorageSync("shopId");
-    */
-    orderNumber ="1901055929510278";
+    //seatName = wx.getStorageSync("zhuoNo");
+    //let shopId = wx.getStorageSync("shopId");
+    //orderNumber ="1901055929510278";
     seatName="3";
     let shopId="82";
     //productStr ="[{productId:47,productName:美味鸡腿堡,quantity:1,price:10.0}]";

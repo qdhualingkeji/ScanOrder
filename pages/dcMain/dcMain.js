@@ -343,5 +343,10 @@ Page({
       }
     }
     return false;
+  },
+  goOrder:function(){
+    wx.navigateTo({
+      url: '/pages/orderDetail/orderDetail',
+    })
   }
 })
