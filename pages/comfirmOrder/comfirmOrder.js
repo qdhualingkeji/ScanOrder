@@ -6,7 +6,7 @@ var type;
 var seatName;
 var discountAmount=0;
 var remark;
-var orderAmount=0;
+var orderAmount=20;
 var discountCouponId=0;
 var orderNumber;
 
@@ -150,20 +150,30 @@ Page({
       comfirmOrder.comfirmTiaoDan();
   },
   commitOrderBtn:function(){
-    seatName = getApp().getZhuoNo();
+    //seatName = getApp().getZhuoNo();
+    seatName = "3";
+    console.log(seatName);
     discountAmount=0;
-    remark="";
+    remark ="微辣";
     orderAmount=comfirmOrder.data.shiFu;
     let jsonStr = comfirmOrder.createJsonStr();
+    //let jsonStr = "[{productId:47,productName:美味鸡腿堡,quantity:2,price:10.0}]";
+    console.log("jsonStr===" + jsonStr);
     let shopId="82";
+    //return false;
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/confirmOrderButton?shopId=" + shopId + "&remark=" + remark + "&jsonProductList=" + jsonStr + "&discountAmount=" + discountAmount + "&seatName=" + seatName + "&orderAmount=" + orderAmount + "&discountCouponId=" + discountCouponId +"&token=ba1cef27-3b9e-4bbe-bbca-f679ece55475",
+      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/confirmOrderButton",
       method: 'POST',
+      data: { shopId: shopId, remark: remark, jsonProductList: jsonStr, discountAmount: discountAmount, seatName: seatName, orderAmount: orderAmount, discountCouponId: discountCouponId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
-        console.log("res==="+JSON.stringify(res));
+        //console.log("res==="+JSON.stringify(res));
         var data = res.data;
-        console.log("data==="+data);
+        //console.log("data==="+data);
         if (data.code == 100) {
+          wx.setStorageSync("orderNumber",data.data);
           wx.showToast({
             title: '下单成功',
             duration:2000
@@ -190,7 +200,8 @@ Page({
     orderNumber ="1901055929510278";
     seatName="3";
     let shopId="82";
-    productStr ="[{productId:47,productName:美味鸡腿堡,quantity:1,price:10.0}]";
+    //productStr ="[{productId:47,productName:美味鸡腿堡,quantity:1,price:10.0}]";
+    productStr = productStr;
 
     wx.request({
       url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/enterAdjustOrder",
@@ -226,10 +237,18 @@ Page({
     result+="[";
     let productList=comfirmOrder.data.orderedFood.productList;
     for (let i = 0; i < productList.length;i++){
-      result += JSON.stringify(productList[i])+",";
+      result += comfirmOrder.convertFoodToString(productList[i])+",";
     }
     result=result.substring(0, result.length-1);
     result += "]";
     return result;
+  },
+  convertFoodToString: function (food) {
+    let newFood = { productId: "", productName: "", quantity: "", price: "" };
+    newFood.productId = food.id;
+    newFood.productName = food.productName;
+    newFood.quantity = food.quantity;
+    newFood.price = food.price;
+    return JSON.stringify(newFood);
   }
 })

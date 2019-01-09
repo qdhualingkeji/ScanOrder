@@ -4,6 +4,7 @@ var orderedList;
 var selectorQuery;
 var foodMount=0;
 var type;
+var orderNumber;
 
 Page({
 
@@ -20,6 +21,8 @@ Page({
   onLoad: function (options) {
     orderedList = this;
     type = options.type;
+    orderNumber = wx.getStorageSync("orderNumber");
+    //orderNumber ="1901055929510278";
     selectorQuery = wx.createSelectorQuery();
   },
 
@@ -76,7 +79,7 @@ Page({
     wx.request({
       url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber',
       method: 'POST',
-      data: { orderNumber: "1901055929510278", shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { orderNumber: orderNumber, shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -85,11 +88,13 @@ Page({
         let productList=[];
         if (data.code == 100) {
           productList = data.data.productList;
-
-          for (let i = 0; i < productList.length; i++) {
-            //console.log("food===" + orderedList.checkIfExist(productList[0]));
-            if(!orderedList.checkIfExist(productList[i])){
-              getApp().addSelectedFood(productList[i]);
+          //console.log(productList);
+          if (productList!=null){
+            for (let i = 0; i < productList.length; i++) {
+              //console.log("food===" + orderedList.checkIfExist(productList[0]));
+              if(!orderedList.checkIfExist(productList[i])){
+                getApp().addSelectedFood(productList[i]);
+              }
             }
           }
         }

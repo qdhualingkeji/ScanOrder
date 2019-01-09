@@ -50,8 +50,9 @@ Page({
     dcMain=this;
     allSelectedFood=getApp().getAllSelectedFood();
     strJiaCai=options.jiacai;
-    //orderNumber=wx.getStorageSync("orderNumber");
-    orderNumber ="1901055929510278";
+    orderNumber=wx.getStorageSync("orderNumber");
+    //orderNumber ="1901055929510278";
+    //console.log(orderNumber);
   },
   onReady:function(){
     this.getShopShowInfoById();
@@ -106,7 +107,6 @@ Page({
               },
               success: function (res) {
                 var data = res.data;
-                //console.log("data===" + JSON.stringify(data));
                 if (data.code == 100) {
                   let goodsList = data.data;
                   for (let j = 0; j < goodsList.length; j++) {
@@ -169,7 +169,7 @@ Page({
       dcMain.getGoodsListByCategoryId();
       dcMain.calulateMoneyAndAmount();
     }
-    else if (orderNumber!=""){
+    else if (orderNumber != "") {
       wx.request({
         url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber",
         method: 'POST',
@@ -203,7 +203,8 @@ Page({
         }
       })
     }
-    else{
+    else {
+      console.log("foodsList===" + foodsList.length);
       dcMain.setData({
         goodsList: foodsList
       });
@@ -301,7 +302,7 @@ Page({
   },
   checkIfAlreadyExistOrder: function (gsList){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder?=&=',
+      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder',
       method: 'POST',
       data: { shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {

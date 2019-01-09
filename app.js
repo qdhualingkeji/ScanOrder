@@ -43,7 +43,7 @@ App({
     for (let i = 0; i < allSelectedFood.length;i++){
       let existFood=allSelectedFood[i];
       if (existFood.categoryId == food.categoryId & existFood.id == food.id){
-        allSelectedFood[i]=food;
+        allSelectedFood[i] =food;
         return;
       }
     }
@@ -51,7 +51,7 @@ App({
     return;
   },
   getAllSelectedFood: function () {
-    //console.log("allSelectedFood==="+allSelectedFood);
+    //console.log("allSelectedFood==="+JSON.stringify(allSelectedFood));
     return allSelectedFood;
   },
   getZhuoNo:function(){
