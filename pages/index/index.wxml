@@ -1,0 +1,7 @@
+<view style='width:100%;'>
+  <view wx:for-items="{{seatList}}">
+    <view data-seatname='{{item.seatName}}' style='width:100%;height:40px;line-height:40px;text-align:center;' catchtap='toDcMain'>
+      {{item.seatName}}
+    </view>
+  </view>
+</view>

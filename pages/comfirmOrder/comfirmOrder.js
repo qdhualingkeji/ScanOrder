@@ -9,6 +9,8 @@ var remark;
 var orderAmount=20;
 var discountCouponId=0;
 var orderNumber;
+var shopId;
+var seatName;
 
 Page({
 
@@ -23,7 +25,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    comfirmOrder=this;
+    comfirmOrder = this;
+    shopId = wx.getStorageSync("shopId");
+    seatName = wx.getStorageSync("zhuoNo");
 
     let pay; 
     type = options.type;
@@ -34,7 +38,7 @@ Page({
     let orderedFood = { productList: [] }
     comfirmOrder.setData({
       pay: pay,
-      zhuohao: getApp().getZhuoNo(),
+      zhuohao: seatName,
       orderedFood: orderedFood
     });
     comfirmOrder.initMenuInfo();
@@ -129,8 +133,12 @@ Page({
   },
   getMineInfo:function(){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getAccountMes?token=ba1cef27-3b9e-4bbe-bbca-f679ece55475',
+      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getAccountMes',
       method: 'POST',
+      data: { token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: function (res) {
         console.log(res);
         var data = res.data;
@@ -150,16 +158,12 @@ Page({
       comfirmOrder.comfirmTiaoDan();
   },
   commitOrderBtn:function(){
-    //seatName = getApp().getZhuoNo();
-    seatName = "3";
-    console.log(seatName);
     discountAmount=0;
     remark ="微辣";
     orderAmount=comfirmOrder.data.shiFu;
     let jsonStr = comfirmOrder.createJsonStr();
     //let jsonStr = "[{productId:47,productName:美味鸡腿堡,quantity:2,price:10.0}]";
     console.log("jsonStr===" + jsonStr);
-    let shopId="82";
     //return false;
     wx.request({
       url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/confirmOrderButton",
@@ -196,8 +200,6 @@ Page({
     //seatName = wx.getStorageSync("zhuoNo");
     //let shopId = wx.getStorageSync("shopId");
     //orderNumber ="1901055929510278";
-    seatName="3";
-    let shopId="82";
     //productStr ="[{productId:47,productName:美味鸡腿堡,quantity:1,price:10.0}]";
     productStr = productStr;
 

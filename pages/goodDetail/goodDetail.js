@@ -1,6 +1,6 @@
 var good;
 var goodDetail;
-var num=1;
+var num = 1;
 
 Page({
 

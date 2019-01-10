@@ -6,6 +6,7 @@ var allSelectedFood;
 var foodMount = 0;
 var strJiaCai;
 var orderNumber;
+var shopId;
 
 Page({
   data: {
@@ -50,11 +51,20 @@ Page({
     dcMain=this;
     allSelectedFood=getApp().getAllSelectedFood();
     strJiaCai=options.jiacai;
+    shopId = wx.getStorageSync("shopId");
     orderNumber=wx.getStorageSync("orderNumber");
     //orderNumber ="1901055929510278";
     //console.log(orderNumber);
   },
   onReady:function(){
+    /*
+    wx.login({
+      success: function (res) {
+        console.log('loginCode:', res)
+      }
+    });
+    */
+
     this.getShopShowInfoById();
     this.getCategoryList();
   },
@@ -83,7 +93,7 @@ Page({
     wx.request({
       url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getCategoryList",
       method: 'POST',
-      data: { shopId:82},
+      data: { shopId: shopId},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -169,11 +179,11 @@ Page({
       dcMain.getGoodsListByCategoryId();
       dcMain.calulateMoneyAndAmount();
     }
-    else if (orderNumber != "") {
+    else{
       wx.request({
         url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber",
         method: 'POST',
-        data: { orderNumber: orderNumber, shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+        data: { orderNumber: orderNumber, shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
         header: {
           'content-type': 'application/x-www-form-urlencoded',
         },
@@ -193,24 +203,16 @@ Page({
               }
             }
 
-            dcMain.setData({
-              goodsList: foodsList
-            });
-
-            dcMain.getGoodsListByCategoryId();
-            dcMain.calulateMoneyAndAmount();
           }
+
+          dcMain.setData({
+            goodsList: foodsList
+          });
+
+          dcMain.getGoodsListByCategoryId();
+          dcMain.calulateMoneyAndAmount();
         }
       })
-    }
-    else {
-      console.log("foodsList===" + foodsList.length);
-      dcMain.setData({
-        goodsList: foodsList
-      });
-
-      dcMain.getGoodsListByCategoryId();
-      dcMain.calulateMoneyAndAmount();
     }
   },
   getUserInfo: function(e) {
@@ -304,12 +306,12 @@ Page({
     wx.request({
       url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder',
       method: 'POST',
-      data: { shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
-        console.log(res);
+        console.log("res==="+JSON.stringify(res));
         var data = res.data;
         if (data.code == 100) {
           dcMain.nextAction(gsList,"xiadan");

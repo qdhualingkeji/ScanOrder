@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/dcMain/dcMain",
+    "pages/index/index",
     "pages/orderedList/orderedList",
     "pages/comfirmOrder/comfirmOrder",
     "pages/goodDetail/goodDetail",

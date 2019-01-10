@@ -5,6 +5,7 @@ var selectorQuery;
 var foodMount=0;
 var type;
 var orderNumber;
+var shopId;
 
 Page({
 
@@ -21,6 +22,7 @@ Page({
   onLoad: function (options) {
     orderedList = this;
     type = options.type;
+    shopId = wx.getStorageSync("shopId");
     orderNumber = wx.getStorageSync("orderNumber");
     //orderNumber ="1901055929510278";
     selectorQuery = wx.createSelectorQuery();
@@ -79,7 +81,7 @@ Page({
     wx.request({
       url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber',
       method: 'POST',
-      data: { orderNumber: orderNumber, shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { orderNumber: orderNumber, shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -200,6 +202,7 @@ Page({
     }
   },
   toConfirm:function(){
+    console.log(22222);
     wx.navigateTo({
       url: '/pages/comfirmOrder/comfirmOrder?type=' + type,
     })
