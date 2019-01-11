@@ -1,5 +1,6 @@
 //app.js
 var allSelectedFood=[];
+var rootIP ="http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
 
 App({
   onLaunch: function () {
@@ -52,5 +53,8 @@ App({
   getAllSelectedFood: function () {
     //console.log("allSelectedFood==="+JSON.stringify(allSelectedFood));
     return allSelectedFood;
+  },
+  getRootIP:function(){
+    return rootIP;
   }
 })

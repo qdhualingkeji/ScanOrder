@@ -9,6 +9,7 @@ var remark;
 var orderAmount=20;
 var discountCouponId=0;
 var orderNumber;
+var rootIP;
 var shopId;
 var seatName;
 
@@ -26,6 +27,7 @@ Page({
    */
   onLoad: function (options) {
     comfirmOrder = this;
+    rootIP = getApp().getRootIP();
     shopId = wx.getStorageSync("shopId");
     seatName = wx.getStorageSync("zhuoNo");
 
@@ -133,7 +135,7 @@ Page({
   },
   getMineInfo:function(){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getAccountMes',
+      url: rootIP+"getAccountMes",
       method: 'POST',
       data: { token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {
@@ -166,7 +168,7 @@ Page({
     console.log("jsonStr===" + jsonStr);
     //return false;
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/confirmOrderButton",
+      url: rootIP+"confirmOrderButton",
       method: 'POST',
       data: { shopId: shopId, remark: remark, jsonProductList: jsonStr, discountAmount: discountAmount, seatName: seatName, orderAmount: orderAmount, discountCouponId: discountCouponId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {
@@ -204,7 +206,7 @@ Page({
     productStr = productStr;
 
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/enterAdjustOrder",
+      url: rootIP+"enterAdjustOrder",
       method: 'POST',
       data: { orderNumber: orderNumber, shopId: shopId, seatName: seatName, jsonProductList: productStr, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {

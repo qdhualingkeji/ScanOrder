@@ -7,6 +7,7 @@ var foodMount = 0;
 var strJiaCai;
 var orderNumber;
 var shopId;
+var rootIP;
 
 Page({
   data: {
@@ -49,6 +50,7 @@ Page({
       })
     }
     dcMain=this;
+    rootIP=getApp().getRootIP();
     allSelectedFood=getApp().getAllSelectedFood();
     strJiaCai=options.jiacai;
     shopId = wx.getStorageSync("shopId");
@@ -57,14 +59,6 @@ Page({
     //console.log(orderNumber);
   },
   onReady:function(){
-    /*
-    wx.login({
-      success: function (res) {
-        console.log('loginCode:', res)
-      }
-    });
-    */
-
     this.getShopShowInfoById();
     this.getCategoryList();
   },
@@ -91,7 +85,7 @@ Page({
   },
   getCategoryList:function(){
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getCategoryList",
+      url: rootIP+"getCategoryList",
       method: 'POST',
       data: { shopId: shopId},
       header: {
@@ -109,7 +103,7 @@ Page({
           let goodsListArr=[];
           for (let i = 0; i < categoryList.length;i++){
             wx.request({
-              url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getGoodsListByCategoryId',
+              url: rootIP+"getGoodsListByCategoryId",
               method: 'POST',
               data: { categoryId: categoryList[i].id, token: "ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
               header: {
@@ -181,7 +175,7 @@ Page({
     }
     else{
       wx.request({
-        url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber",
+        url: rootIP+"getOrderDetailsByOrderNumber",
         method: 'POST',
         data: { orderNumber: orderNumber, shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
         header: {
@@ -304,7 +298,7 @@ Page({
   },
   checkIfAlreadyExistOrder: function (gsList){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/checkIfAlreadyExistOrder',
+      url: rootIP+"checkIfAlreadyExistOrder",
       method: 'POST',
       data: { shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {

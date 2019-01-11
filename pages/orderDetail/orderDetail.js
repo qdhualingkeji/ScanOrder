@@ -2,6 +2,8 @@
 const app = getApp()
 var orderDetail;
 var orderNumber;
+var shopId;
+var rootIP;
 
 Page({
 
@@ -16,6 +18,8 @@ Page({
    */
   onLoad: function (options) {
     orderDetail = this;
+    rootIP = getApp().getRootIP();
+    shopId = wx.getStorageSync("shopId");
     orderNumber = wx.getStorageSync("orderNumber");
     //console.log(wx.getStorageSync("aaa"));
   },
@@ -70,9 +74,9 @@ Page({
   },
   getOrderDetailsByOrderNumber:function(){
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getOrderDetailsByOrderNumber",
+      url: rootIP+"getOrderDetailsByOrderNumber",
       method: 'POST',
-      data: { orderNumber: orderNumber, shopId: 82, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { orderNumber: orderNumber, shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -188,7 +192,7 @@ Page({
   cuiDanBtn:function(){
     //put
     wx.request({
-      url: "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/reminderInterface",
+      url: rootIP+"reminderInterface",
       method: 'POST',
       data: { orderNumber: orderNumber},
       header: {

@@ -1,5 +1,6 @@
 // pages/index/index.js
 var index;
+var rootIP;
 
 Page({
 
@@ -14,9 +15,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    index=this;
+    index = this;
+    rootIP = getApp().getRootIP();
     let shopId = options.shopId;
     wx.setStorageSync("shopId", 82);
+
+    wx.login({
+      success: function (res) {
+        console.log('loginCode:', res)
+      }
+    });
   },
 
   /**
@@ -70,7 +78,7 @@ Page({
   getShopSeatInfoById:function(){
     let shopId=wx.getStorageSync("shopId");
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/getShopSeatInfoById',
+      url: rootIP+"getShopSeatInfoById",
       method: 'POST',
       data: { shopId: shopId},
       header: {
