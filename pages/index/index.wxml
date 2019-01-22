@@ -4,4 +4,7 @@
       {{item.seatName}}
     </view>
   </view>
+  <button  open-type="getUserInfo" catchtap='getUserInfo'>aaa</button>
+  <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+  <button catchtap='wxlogin'>登录</button>
 </view>

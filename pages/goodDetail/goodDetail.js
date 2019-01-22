@@ -2,6 +2,7 @@ var good;
 var goodDetail;
 var num = 1;
 var rootIP;
+var token;
 
 Page({
 
@@ -17,6 +18,7 @@ Page({
   onLoad: function (options) {
     good = JSON.parse(options.goodsdetail);
     rootIP = getApp().getRootIP();
+    token = wx.getStorageSync("token");
     goodDetail=this;
     goodDetail.setData({
       good: good,
@@ -163,7 +165,7 @@ Page({
     wx.request({
       url: rootIP+"addToWishListById",
       method: 'POST',
-      data: { token: "ba1cef27-3b9e-4bbe-bbca-f679ece55475", productId: productId, state: isCollect},
+      data: { token: token, productId: productId, state: isCollect},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },

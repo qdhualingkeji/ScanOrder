@@ -1,6 +1,7 @@
 //app.js
 var allSelectedFood=[];
 var rootIP ="http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
+var rootIP1 = "http://120.27.5.36:8080/htkApp/API/wxScanUserAPI/";
 
 App({
   onLaunch: function () {
@@ -56,5 +57,8 @@ App({
   },
   getRootIP:function(){
     return rootIP;
+  },
+  getRootIP1: function () {
+    return rootIP1;
   }
 })

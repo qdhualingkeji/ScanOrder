@@ -8,6 +8,8 @@ var strJiaCai;
 var orderNumber;
 var shopId;
 var rootIP;
+var rootIP1;
+var token;
 
 Page({
   data: {
@@ -50,11 +52,13 @@ Page({
       })
     }
     dcMain=this;
-    rootIP=getApp().getRootIP();
+    rootIP = getApp().getRootIP();
+    rootIP1 = getApp().getRootIP1();
     allSelectedFood=getApp().getAllSelectedFood();
     strJiaCai=options.jiacai;
     shopId = wx.getStorageSync("shopId");
-    orderNumber=wx.getStorageSync("orderNumber");
+    orderNumber = wx.getStorageSync("orderNumber");
+    token = wx.getStorageSync("token");
     //orderNumber ="1901055929510278";
     //console.log(orderNumber);
   },
@@ -64,9 +68,9 @@ Page({
   },
   getShopShowInfoById:function(){
     wx.request({
-      url: 'http://120.27.5.36:8080/htkApp/API/shopDataAPI/getShopShowInfoById',
+      url: rootIP1+"getShopShowInfoById",
       method: 'POST',
-      data: { shopId: 80},
+      data: { shopId: shopId},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -105,7 +109,7 @@ Page({
             wx.request({
               url: rootIP+"getGoodsListByCategoryId",
               method: 'POST',
-              data: { categoryId: categoryList[i].id, token: "ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+              data: { categoryId: categoryList[i].id, token: token},
               header: {
                 'content-type': 'application/x-www-form-urlencoded',
               },
@@ -177,7 +181,7 @@ Page({
       wx.request({
         url: rootIP+"getOrderDetailsByOrderNumber",
         method: 'POST',
-        data: { orderNumber: orderNumber, shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+        data: { orderNumber: orderNumber, shopId: shopId, token:token},
         header: {
           'content-type': 'application/x-www-form-urlencoded',
         },
@@ -300,7 +304,7 @@ Page({
     wx.request({
       url: rootIP+"checkIfAlreadyExistOrder",
       method: 'POST',
-      data: { shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { shopId: shopId, token:token},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },

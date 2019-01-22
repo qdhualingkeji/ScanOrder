@@ -4,6 +4,7 @@ var orderDetail;
 var orderNumber;
 var shopId;
 var rootIP;
+var token;
 
 Page({
 
@@ -21,7 +22,7 @@ Page({
     rootIP = getApp().getRootIP();
     shopId = wx.getStorageSync("shopId");
     orderNumber = wx.getStorageSync("orderNumber");
-    //console.log(wx.getStorageSync("aaa"));
+    token = wx.getStorageSync("token");
   },
 
   /**
@@ -76,7 +77,7 @@ Page({
     wx.request({
       url: rootIP+"getOrderDetailsByOrderNumber",
       method: 'POST',
-      data: { orderNumber: orderNumber, shopId: shopId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { orderNumber: orderNumber, shopId: shopId, token:token},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
