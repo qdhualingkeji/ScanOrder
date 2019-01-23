@@ -12,6 +12,7 @@ var orderNumber;
 var rootIP;
 var shopId;
 var seatName;
+var token;
 
 Page({
 
@@ -30,6 +31,7 @@ Page({
     rootIP = getApp().getRootIP();
     shopId = wx.getStorageSync("shopId");
     seatName = wx.getStorageSync("zhuoNo");
+    token = wx.getStorageSync("token");
 
     let pay; 
     type = options.type;
@@ -96,9 +98,10 @@ Page({
     
   },
   //用本地数据初始化菜单信息
-  initMenuInfo:function(){
+  initMenuInfo: function () {
+    comfirmOrder.clearData();//清除之前的数据（安卓端自动就清空了，但小程序的全局变量无法自动清空，需要调用这个方法清空）
     let allSelectedFood = getApp().getAllSelectedFood();
-    let productList=comfirmOrder.data.orderedFood.productList;
+    let productList = comfirmOrder.data.orderedFood.productList;
     for (let i = 0; i < allSelectedFood.length;i++){
       //console.log(allSelectedFood[i]);
       productList.push(allSelectedFood[i]);
@@ -116,12 +119,14 @@ Page({
       if (i < (productList.length - 1)) {
         productStr += comfirmOrder.convertFoodToString(productList[i]) + ",";
       } else {
+        console.log("productStr111==="+productStr);
         productStr += comfirmOrder.convertFoodToString(productList[i]);
+        console.log("productStr222==="+productStr);
       }
-    } 
+    }
     productStr = "[" + productStr + "]";
     comfirmOrder.refreshUI();
-    //console.log("productStr==="+productStr);
+    console.log("productStr==="+productStr);
   },
   refreshUI:function(){
     comfirmOrder.setData({
@@ -137,7 +142,7 @@ Page({
     wx.request({
       url: rootIP+"getAccountMes",
       method: 'POST',
-      data: { token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { token:token},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -170,12 +175,12 @@ Page({
     wx.request({
       url: rootIP+"confirmOrderButton",
       method: 'POST',
-      data: { shopId: shopId, remark: remark, jsonProductList: jsonStr, discountAmount: discountAmount, seatName: seatName, orderAmount: orderAmount, discountCouponId: discountCouponId, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { shopId: shopId, remark: remark, jsonProductList: jsonStr, discountAmount: discountAmount, seatName: seatName, orderAmount: orderAmount, discountCouponId: discountCouponId, token:token},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
-        //console.log("res==="+JSON.stringify(res));
+        console.log("res==="+JSON.stringify(res));
         var data = res.data;
         //console.log("data==="+data);
         if (data.code == 100) {
@@ -205,10 +210,11 @@ Page({
     //productStr ="[{productId:47,productName:美味鸡腿堡,quantity:1,price:10.0}]";
     productStr = productStr;
 
+    console.log("productStr===" + productStr);
     wx.request({
       url: rootIP+"enterAdjustOrder",
       method: 'POST',
-      data: { orderNumber: orderNumber, shopId: shopId, seatName: seatName, jsonProductList: productStr, token:"ba1cef27-3b9e-4bbe-bbca-f679ece55475"},
+      data: { orderNumber: orderNumber, shopId: shopId, seatName: seatName, jsonProductList: productStr, token:token},
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
@@ -246,11 +252,18 @@ Page({
     return result;
   },
   convertFoodToString: function (food) {
+    console.log("food===" + JSON.stringify(food));
     let newFood = { productId: "", productName: "", quantity: "", price: "" };
     newFood.productId = food.id;
     newFood.productName = food.productName;
     newFood.quantity = food.quantity;
     newFood.price = food.price;
+    console.log("newFood===" + JSON.stringify(newFood));
     return JSON.stringify(newFood);
+  },
+  clearData: function () {
+    mount = 0;
+    money = 0;
+    productStr = "";
   }
 })

@@ -141,6 +141,7 @@ Page({
     })
   },
   tiaoDan: function () {
+    console.log("orderNumber===" + orderNumber);
     if (orderNumber != null & orderNumber!=""){
       wx.navigateTo({
         url: '/pages/orderedList/orderedList?type=tiaodan'

@@ -22,7 +22,8 @@ Page({
     rootIP = getApp().getRootIP();
     rootIP1 = getApp().getRootIP1();
     let shopId = options.shopId;
-    wx.setStorageSync("shopId", 82);
+    //wx.setStorageSync("shopId", 82);
+    wx.setStorageSync("shopId", shopId);
   },
 
   /**

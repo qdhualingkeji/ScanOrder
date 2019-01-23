@@ -301,6 +301,8 @@ Page({
     dcMain.checkIfAlreadyExistOrder(gsList);
   },
   checkIfAlreadyExistOrder: function (gsList){
+    console.log("shopId===" + shopId);
+    console.log("token===" + token);
     wx.request({
       url: rootIP+"checkIfAlreadyExistOrder",
       method: 'POST',
@@ -309,7 +311,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: function (res) {
-        console.log("res==="+JSON.stringify(res));
+        console.log("res1==="+JSON.stringify(res));
         var data = res.data;
         if (data.code == 100) {
           dcMain.nextAction(gsList,"xiadan");
