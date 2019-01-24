@@ -143,7 +143,8 @@ Page({
   tiaoDan: function () {
     console.log("orderNumber===" + orderNumber);
     if (orderNumber != null & orderNumber!=""){
-      wx.navigateTo({
+      console.log("111111");
+      wx.redirectTo({
         url: '/pages/orderedList/orderedList?type=tiaodan'
       })
     }
@@ -219,7 +220,7 @@ Page({
     })
   },
   goDianCai:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/dcMain/dcMain',
     })
   }

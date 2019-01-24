@@ -22,8 +22,8 @@ Page({
     rootIP = getApp().getRootIP();
     rootIP1 = getApp().getRootIP1();
     let shopId = options.shopId;
-    //wx.setStorageSync("shopId", 82);
-    wx.setStorageSync("shopId", shopId);
+    wx.setStorageSync("shopId", 82);
+    //wx.setStorageSync("shopId", shopId);
   },
 
   /**
@@ -78,7 +78,7 @@ Page({
 
   },
   getShopSeatInfoById:function(){
-    let shopId=wx.getStorageSync("shopId");
+    let shopId = wx.getStorageSync("shopId");
     wx.request({
       url: rootIP+"getShopSeatInfoById",
       method: 'POST',
@@ -100,7 +100,7 @@ Page({
   toDcMain:function(e){
     let seatName=e.currentTarget.dataset.seatname;
     wx.setStorageSync("zhuoNo", seatName);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/dcMain/dcMain',
     })
   },

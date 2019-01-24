@@ -119,9 +119,9 @@ Page({
       if (i < (productList.length - 1)) {
         productStr += comfirmOrder.convertFoodToString(productList[i]) + ",";
       } else {
-        console.log("productStr111==="+productStr);
+        //console.log("productStr111==="+productStr);
         productStr += comfirmOrder.convertFoodToString(productList[i]);
-        console.log("productStr222==="+productStr);
+        //console.log("productStr222==="+productStr);
       }
     }
     productStr = "[" + productStr + "]";
@@ -189,7 +189,7 @@ Page({
             title: '下单成功',
             duration:2000
           })
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/dcMain/dcMain'
           })
         }
@@ -227,7 +227,7 @@ Page({
             title: '发送调单请求成功，请等待商家确认',
             duration:2000
           })
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/dcMain/dcMain',
           })
         }
@@ -252,13 +252,13 @@ Page({
     return result;
   },
   convertFoodToString: function (food) {
-    console.log("food===" + JSON.stringify(food));
+    //console.log("food===" + JSON.stringify(food));
     let newFood = { productId: "", productName: "", quantity: "", price: "" };
     newFood.productId = food.id;
     newFood.productName = food.productName;
     newFood.quantity = food.quantity;
     newFood.price = food.price;
-    console.log("newFood===" + JSON.stringify(newFood));
+    //console.log("newFood===" + JSON.stringify(newFood));
     return JSON.stringify(newFood);
   },
   clearData: function () {

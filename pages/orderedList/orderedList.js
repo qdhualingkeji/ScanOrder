@@ -189,7 +189,7 @@ Page({
     orderedList.calulateMoneyAndAmount();
   },
   jiaCai:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/dcMain/dcMain?jiacai=jiacai',
     })
   },
@@ -206,7 +206,7 @@ Page({
   },
   toConfirm:function(){
     console.log(22222);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/comfirmOrder/comfirmOrder?type=' + type,
     })
   }

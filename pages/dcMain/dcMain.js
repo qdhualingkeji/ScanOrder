@@ -20,7 +20,7 @@ Page({
   },
   //事件处理函数
   bindViewTap: function() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../logs/logs'
     })
   },
@@ -224,7 +224,7 @@ Page({
   goGoodsdetail:function(e){
     let index=e.currentTarget.dataset.index;
     let goodsdetail=JSON.stringify(dcMain.data.goodsList[index]);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/goodDetail/goodDetail?goodsdetail=' + goodsdetail,
     })
   },
@@ -329,7 +329,7 @@ Page({
         getApp().addSelectedFood(gsList[i]);
       }
     }
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/orderedList/orderedList?type=' + type,
     })
   },
@@ -347,7 +347,7 @@ Page({
     return false;
   },
   goOrder:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/orderDetail/orderDetail',
     })
   }
