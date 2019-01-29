@@ -139,6 +139,7 @@ Page({
     });
   },
   getMineInfo:function(){
+    /*
     wx.request({
       url: rootIP+"getAccountMes",
       method: 'POST',
@@ -157,6 +158,13 @@ Page({
         }
       }
     })
+    */
+    let nickName = wx.getStorageSync("nickName");
+    let avatarUrl = wx.getStorageSync("avatarUrl");
+    comfirmOrder.setData({
+      imgUrl: avatarUrl,
+      nickName: nickName
+    });
   },
   bottompay:function(){
     if (type == "xiadan")

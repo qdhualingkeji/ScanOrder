@@ -1,7 +1,9 @@
 //app.js
 var allSelectedFood=[];
-var rootIP ="http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
-var rootIP1 = "http://120.27.5.36:8080/htkApp/API/wxScanUserAPI/";
+//var rootIP = "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
+var rootIP = "https://www.bainuojiaoche.com/htkApp/API/buffetFoodAPI/";
+//var rootIP1 = "https://120.27.5.36:8080/htkApp/API/wxScanUserAPI/";
+var rootIP1 = "https://www.bainuojiaoche.com/htkApp/API/wxScanUserAPI/";
 
 App({
   onLaunch: function () {

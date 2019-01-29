@@ -97,30 +97,39 @@ Page({
       }
     })
   },
-  toDcMain:function(e){
+  toDcMain: function (e) {
     let seatName=e.currentTarget.dataset.seatname;
     wx.setStorageSync("zhuoNo", seatName);
     wx.redirectTo({
       url: '/pages/dcMain/dcMain',
     })
   },
-  getUserInfo:function(){
-    wx.getUserInfo({
-      success: function (res) {
+  getUserInfo:function(e){
+    let nickName = wx.getStorageSync("nickName");
+    let avatarUrl = wx.getStorageSync("avatarUrl");
+    if (nickName == "" || avatarUrl==""){
+      wx.getUserInfo({
+        success: function (res) {
 
-        console.log("res===" + JSON.stringify(res));
-        /*
-        that.data.userInfo = res.userInfo;
+          console.log("res===" + JSON.stringify(res));
+          //console.log("===" + res.userInfo.nickName);
+          //console.log("===" + res.userInfo.avatarUrl);
+          wx.setStorageSync("nickName", res.userInfo.nickName);
+          wx.setStorageSync("avatarUrl", res.userInfo.avatarUrl);
+          /*
+          that.data.userInfo = res.userInfo;
 
-        that.setData({
-          userInfo: that.data.userInfo
-        })
-        */
-      },
-      fail: function (res) {
-        console.log("res1===" + JSON.stringify(res));
-      }
-    })
+          that.setData({
+            userInfo: that.data.userInfo
+          })
+          */
+        },
+        fail: function (res) {
+          console.log("res1===" + JSON.stringify(res));
+        }
+      })
+    }
+    index.toDcMain(e);
   },
   getPhoneNumber: function (e) {
     //console.log(e.detail)

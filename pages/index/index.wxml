@@ -1,11 +1,12 @@
 <view style='width:100%;'>
+  <view style='width:100%;height:40px;line-height:40px;text-align:center;'>请选择桌号</view>
   <view wx:for-items="{{seatList}}">
-    <view data-seatname='{{item.seatName}}' style='width:100%;height:40px;line-height:40px;text-align:center;' catchtap='toDcMain'>
+    <button open-type="getUserInfo" data-seatname='{{item.seatName}}' style='width:100%;height:40px;line-height:40px;text-align:center;' catchtap='getUserInfo'>
       {{item.seatName}}
-    </view>
+    </button>
   </view>
   <!--
-  <button  open-type="getUserInfo" catchtap='getUserInfo'>aaa</button>
+  <button  open-type="getUserInfo" catchtap='getUserInfo'>getUserInfo</button>
   <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
   <button catchtap='wxlogin'>登录</button>
   -->
